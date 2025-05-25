@@ -99,7 +99,7 @@
         .hamburger-menu {
             display: none; /* Hidden by default, shown on mobile via media query */
             position: fixed;
-            top: 30px; /* Initial top position */
+            top: 30px;
             left: 20px; /* Positioned to the left */
             width: 40px;
             height: 40px;
@@ -111,16 +111,8 @@
             flex-direction: column;
             cursor: pointer;
             z-index: 1001; /* Above navigation */
-            transition: all 0.3s ease, top 0.3s ease; /* Add transition for top */
+            transition: all 0.3s ease;
         }
-
-        .hamburger-menu.sticky {
-            top: 0; /* When sticky, move to top */
-            background: rgba(0, 0, 0, 0.9); /* Match sticky nav background */
-            padding: 5px 0; /* Adjust padding if necessary to align with sticky nav */
-            height: 50px; /* Adjust height to match sticky nav if needed */
-        }
-
 
         .hamburger-menu span {
             display: block;
@@ -194,7 +186,8 @@
         .mobile-nav-overlay.open a:nth-child(3) { animation-delay: 0.2s; }
         .mobile-nav-overlay.open a:nth-child(4) { animation-delay: 0.25s; }
         .mobile-nav-overlay.open a:nth-child(5) { animation-delay: 0.3s; }
-        .mobile-nav-overlay.open a:nth-child(6) { animation-delay: 0.35s; } /* New Home link */
+        .mobile-nav-overlay.open a:nth-child(6) { animation-delay: 0.35s; }
+        .mobile-nav-overlay.open a:nth-child(7) { animation-delay: 0.4s; } /* New Certifications link */
 
 
         .mobile-nav-overlay a:hover {
@@ -232,14 +225,11 @@
         }
 
         .home-content h1 { /* Renamed from .hero-content h1 */
-            font-size: clamp(1.8rem, 8vw, 7rem); /* Adjusted clamp values */
+            font-size: clamp(3rem, 6vw, 7rem);
             font-weight: 300;
-            color: #ffffff; /* Default color for the name before dynamic styling */
+            color: #ffffff;
             margin-bottom: 20px;
-            line-height: 1.2; /* Adjusted line-height */
-            overflow-wrap: break-word; /* Ensure long words break onto the next line */
-            width: 100%; /* Ensure it takes full width available */
-            max-width: 100%; /* Explicitly prevent it from exceeding */
+            line-height: 0.9;
         }
 
         .home-content .highlight { /* Renamed from .hero-content .highlight */
@@ -247,36 +237,11 @@
             font-weight: 600;
         }
 
-        /* Styles for the dynamically typed name parts */
-        .name-emmanuel {
-            color: #ffffff; /* White color for "Emmanuel" */
-            font-weight: 300; /* Light font weight for "Emmanuel" */
-        }
-
-        .name-omitogun {
-            color: #00ff88; /* Green color for "Omitogun" */
-            font-weight: 600; /* Bold font weight for "Omitogun" */
-        }
-
-        /* Existing .home-content .subtitle style, ensure it's not overridden */
-        .home-content .subtitle {
+        .home-content .subtitle { /* Renamed from .hero-content .subtitle */
             font-size: 1.4rem;
             color: #a0a0a0;
             margin-bottom: 30px;
             font-weight: 300;
-        }
-
-        /* New: Styles for the typed text cursor */
-        .typed-cursor {
-            display: inline-block;
-            margin-left: 5px;
-            color: #00ff88; /* Color of the blinking cursor */
-            animation: blinkCursor 0.7s infinite;
-        }
-
-        @keyframes blinkCursor {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
         }
 
         .home-content .professional-summary { /* Renamed from .hero-content .professional-summary */
@@ -387,16 +352,16 @@
         }
 
         .btn-primary {
-            background: #00ff88;
-            color: #0a0a0a;
-            border: 2px solid #00ff88;
+            background: transparent; /* Changed to transparent */
+            color: #ffffff; /* Changed text color to white */
+            border: 2px solid #ffffff; /* Changed border to white */
         }
 
         .btn-primary:hover {
-            background: transparent;
-            color: #00ff88;
+            background: #ffffff; /* White background on hover */
+            color: #0a0a0a; /* Dark text on hover */
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3); /* White shadow on hover */
         }
 
         .btn-secondary {
@@ -409,6 +374,35 @@
             background: #ffffff;
             color: #0a0a0a;
             transform: translateY(-2px);
+        }
+
+        .btn-projects-highlight {
+            background: #00ff88; /* Vibrant background */
+            color: #0a0a0a; /* Dark text */
+            border: 2px solid #00ff88;
+            font-weight: 600; /* Bolder text */
+            box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7); /* Initial shadow for pulse */
+            animation: pulse-border 2s infinite ease-out; /* Pulse animation */
+        }
+
+        .btn-projects-highlight:hover {
+            background: #00e673; /* Slightly darker green on hover */
+            color: #0a0a0a;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.5); /* Stronger shadow on hover */
+            animation: none; /* Stop pulse on hover */
+        }
+
+        @keyframes pulse-border {
+            0% {
+                box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 20px rgba(0, 255, 136, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(0, 255, 136, 0);
+            }
         }
 
         /* Section Styling */
@@ -624,8 +618,8 @@
 
         .project-links {
             display: flex;
-            gap: 20px;
             flex-wrap: wrap;
+            gap: 20px;
             margin-top: 25px;
         }
 
@@ -734,6 +728,81 @@
             color: #a0a0a0;
             line-height: 1.6;
         }
+
+        /* Certifications Section */
+        .certifications-section {
+            background: #0a0a0a; /* Match projects/home section background */
+        }
+
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 columns for desktop */
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .certification-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(20px);
+            opacity: 0; /* Initial state for animation */
+            transform: translateY(20px); /* Initial state for animation */
+        }
+
+        .certification-card.animate-in {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .certification-card:hover {
+            transform: translateY(-10px);
+            border-color: #00ff88;
+            box-shadow: 0 20px 60px rgba(0, 255, 136, 0.1);
+        }
+
+        .certification-card i {
+            font-size: 3.5rem;
+            color: #00ff88;
+            margin-bottom: 20px;
+        }
+
+        .certification-card h3 {
+            font-size: 1.4rem;
+            color: #ffffff;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .certification-card p {
+            color: #a0a0a0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .certification-card .cert-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #00ff88;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            border: 1px solid #00ff88;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .certification-card .cert-link:hover {
+            background: #00ff88;
+            color: #0a0a0a;
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+
 
         /* Contact Section */
         .contact-section {
@@ -932,6 +1001,10 @@
                 left: 30px;
                 transform: translateX(-50%);
             }
+
+            .certifications-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
+            }
         }
 
         @media (max-width: 768px) {
@@ -950,7 +1023,8 @@
             .skills-grid,
             .projects-grid,
             .timeline,
-            .contact-grid {
+            .contact-grid,
+            .certifications-grid { /* Added certifications-grid */
                 padding: 0 20px;
             }
 
@@ -962,46 +1036,61 @@
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            .home-content {
-                /* Ensure the content itself does not exceed 100% of the grid's available width */
-                width: 100%;
-                max-width: 100%; /* Explicitly constrain home-content */
-                box-sizing: border-box; /* Re-affirm box-sizing */
+            .home-content h1 { /* Renamed from .hero-content h1 */
+                font-size: 3rem;
             }
 
-            .home-content .subtitle { /* Renamed from .hero-content .subtitle */
-                font-size: 1.2rem;
+            .scroll-arrow {
+                right: 15px;
+                width: 35px;
+                height: 35px;
+                font-size: 18px;
+            }
+            #scroll-to-prev-section {
+                bottom: 70px;
+            }
+            #scroll-to-next-section {
+                bottom: 15px;
             }
 
-            .home-content .professional-summary { /* Renamed from .hero-content .professional-summary */
-                font-size: 1rem;
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
             }
 
-            .section-title {
-                font-size: 2rem;
+            .home-image { /* Renamed from .hero-image */
+                height: 400px;
             }
 
-            .skill-category {
-                padding: 30px 20px;
-            }
-
-            .project-content {
-                padding: 25px;
-            }
-
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-            .skills-grid,
-            .projects-grid,
-            .timeline,
-            .contact-grid,
-            .home-grid { /* Renamed from .hero-grid */
-                padding: 0 15px;
-            }
-            /* Adjust mobile nav width for very small screens if needed */
-            .mobile-nav-overlay {
+            .profile-container {
                 width: 250px;
+                height: 250px;
+            }
+
+            .orbit-1 {
+                width: 300px;
+                height: 300px;
+                top: -25px;
+                left: -25px;
+            }
+
+            .orbit-2 {
+                width: 380px;
+                height: 380px;
+                top: -65px;
+                left: -65px;
+            }
+            .home-section { /* Renamed from .hero */
+                padding-top: 80px;
+                min-height: auto;
+                align-items: flex-start;
+            }
+            .home-grid { /* Renamed from .hero-grid */
+                padding: 0 20px;
+            }
+            .certifications-grid {
+                grid-template-columns: 1fr; /* 1 column for mobile */
             }
         }
 
@@ -1025,10 +1114,8 @@
                 left: -50px;
             }
 
-            .home-content {
-                width: 100%;
-                max-width: 100%;
-                box-sizing: border-box;
+            .home-content h1 { /* Renamed from .hero-content h1 */
+                font-size: 2.5rem;
             }
 
             .home-content .subtitle { /* Renamed from .hero-content .subtitle */
@@ -1058,7 +1145,8 @@
             .projects-grid,
             .timeline,
             .contact-grid,
-            .home-grid { /* Renamed from .hero-grid */
+            .home-grid,
+            .certifications-grid { /* Added certifications-grid */
                 padding: 0 15px;
             }
             /* Adjust mobile nav width for very small screens if needed */
@@ -1106,7 +1194,7 @@
         <a href="#skills">Skills</a>
         <a href="#projects">Projects</a>
         <a href="#experience">Experience</a>
-        <a href="#contact">Contact</a>
+        <a href="#certifications">Certifications</a> <a href="#contact">Contact</a>
     </nav>
 
     <div class="hamburger-menu" id="hamburger-menu">
@@ -1121,36 +1209,32 @@
         <a href="#skills" class="mobile-nav-link">Skills</a>
         <a href="#projects" class="mobile-nav-link">Projects</a>
         <a href="#experience" class="mobile-nav-link">Experience</a>
-        <a href="#contact" class="mobile-nav-link">Contact</a>
+        <a href="#certifications" class="mobile-nav-link">Certifications</a> <a href="#contact" class="mobile-nav-link">Contact</a>
     </div>
 
     <div class="container">
-        <section class="home-section" id="home">
-            <div class="home-grid">
-                <div class="home-content">
-                    <h1><span id="typed-name-content"></span><span class="typed-cursor">|</span></h1>
+        <section class="home-section" id="home"> <div class="home-grid"> <div class="home-content"> <h1>Emmanuel <span class="highlight">Omitogun</span></h1>
                     <p class="subtitle">Data Analyst & Business Intelligence Specialist</p>
                     <p class="professional-summary">
                         I'm a data analyst passionate about solving real-world problems using Power BI, Excel, SQL, and storytelling.
                         My projects focus on business performance, customer behavior, and strategic insights.
                     </p>
                     <div class="cta-buttons">
-                        <a href="#contact" class="btn btn-primary">
-                            <i class="fas fa-rocket"></i>
-                            Connect
+                        <a href="#projects" class="btn btn-projects-highlight">
+                            <i class="fas fa-chart-bar"></i>
+                            View Projects
                         </a>
                         <a href="Images/resume_sample.pdf" class="btn btn-secondary" target="_blank">
                             <i class="fas fa-download"></i>
-                            Resume
+                            Download Resume
                         </a>
-                        <a href="#projects" class="btn btn-secondary">
-                            <i class="fas fa-chart-bar"></i>
-                            Projects
+                        <a href="#contact" class="btn btn-primary">
+                            <i class="fas fa-rocket"></i>
+                            Contact Me
                         </a>
                     </div>
                 </div>
-                <div class="home-image">
-                    <div class="profile-container">
+                <div class="home-image"> <div class="profile-container">
                         <div class="profile-pic">
                             <img src="Images/picture_2.jpg" alt="Omitogun Emmanuel">
                         </div>
@@ -1372,6 +1456,50 @@
 
         <div class="section-divider"></div>
 
+        <section class="section certifications-section" id="certifications">
+            <h2 class="section-title">My <span class="accent">Certifications</span></h2>
+            <div class="certifications-grid">
+                <div class="certification-card">
+                    <i class="fas fa-certificate"></i>
+                    <h3>Google Data Analytics Professional Certificate</h3>
+                    <p>Issued by Google</p>
+                    <a href="#" class="cert-link" target="_blank">View Credential</a>
+                </div>
+                <div class="certification-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Microsoft Power BI Data Analyst Associate</h3>
+                    <p>Issued by Microsoft</p>
+                    <a href="#" class="cert-link" target="_blank">View Credential</a>
+                </div>
+                <div class="certification-card">
+                    <i class="fas fa-database"></i>
+                    <h3>SQL for Data Analysis</h3>
+                    <p>Issued by Codecademy</p>
+                    <a href="#" class="cert-link" target="_blank">View Credential</a>
+                </div>
+                <div class="certification-card">
+                    <i class="fab fa-python"></i>
+                    <h3>Python for Data Science</h3>
+                    <p>Issued by IBM</p>
+                    <a href="#" class="cert-link" target="_blank">View Credential</a>
+                </div>
+                <div class="certification-card">
+                    <i class="fas fa-microchip"></i>
+                    <h3>Machine Learning Foundations</h3>
+                    <p>Issued by Coursera</p>
+                    <a href="#" class="cert-link" target="_blank">View Credential</a>
+                </div>
+                <div class="certification-card">
+                    <i class="fas fa-chart-pie"></i>
+                    <h3>Advanced Excel for Business</h3>
+                    <p>Issued by Udemy</p>
+                    <a href="#" class="cert-link" target="_blank">View Credential</a>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
         <section class="section contact-section" id="contact">
             <h2 class="section-title">Get In <span class="accent">Touch</span></h2>
             <p style="color: #a0a0a0; font-size: 1.2rem; margin-bottom: 60px; max-width: 600px; margin-left: auto; margin-right: auto;">
@@ -1485,7 +1613,16 @@
                         // Remove initial opacity/transform for the section itself if it was set
                         targetElement.style.opacity = 1;
                         targetElement.style.transform = 'translateY(0)';
-                    } else if (targetElement.classList.contains('contact-section')) {
+                    } else if (targetElement.classList.contains('certifications-section')) { // Added certifications section
+                        // Stagger animation for certification cards
+                        const certCards = targetElement.querySelectorAll('.certification-card');
+                        certCards.forEach((card, index) => {
+                            card.style.animation = `fadeInUp 0.6s ease-out ${index * 0.1}s forwards`;
+                        });
+                        targetElement.style.opacity = 1;
+                        targetElement.style.transform = 'translateY(0)';
+                    }
+                    else if (targetElement.classList.contains('contact-section')) {
                         // Stagger animation for contact items
                         const contactItems = targetElement.querySelectorAll('.contact-item');
                         contactItems.forEach((item, index) => {
@@ -1604,12 +1741,8 @@
         function checkStickyNav() {
             if (homeSection && window.scrollY > homeSection.offsetHeight - navHeight) { // Adjust threshold as needed
                 mainNav.classList.add('sticky');
-                // Also make hamburger menu sticky
-                hamburgerMenu.classList.add('sticky');
             } else {
                 mainNav.classList.remove('sticky');
-                // Remove sticky from hamburger menu
-                hamburgerMenu.classList.remove('sticky');
             }
         }
         window.addEventListener('scroll', checkStickyNav);
@@ -1643,77 +1776,6 @@
                 }
             });
         }
-
-        // Typing and Deleting Effect for the Name
-        const typedNameElement = document.getElementById('typed-name-content');
-        const fullNameToType = "Emmanuel Omitogun"; // Plain text
-        let displayedText = ""; // Holds the plain text currently typed/deleted
-        let charIndex = 0;
-        let isDeleting = false;
-        let typingSpeed = 100; // milliseconds per character
-        let deletingSpeed = 50; // milliseconds per character
-        let pauseAfterType = 2000; // milliseconds to pause after typing
-        let pauseAfterDelete = 1000; // milliseconds to pause after deleting
-
-        function updateDisplay() {
-            // This function takes the plain `displayedText` and adds the HTML styling
-            let htmlContent = displayedText;
-            const omitogunStart = displayedText.indexOf("Omitogun");
-
-            if (omitogunStart !== -1) {
-                // If "Omitogun" is present, wrap it with the green class
-                const emmanuelPart = displayedText.substring(0, omitogunStart);
-                const omitogunPart = displayedText.substring(omitogunStart);
-                htmlContent = `<span class='name-emmanuel'>${emmanuelPart}</span>` +
-                              `<span class='name-omitogun'>${omitogunPart}</span>`;
-            } else {
-                // If only "Emmanuel" (or partial) is present, apply white class to it
-                htmlContent = `<span class='name-emmanuel'>${displayedText}</span>`;
-            }
-            typedNameElement.innerHTML = htmlContent;
-        }
-
-        function typeEffect() {
-            if (!isDeleting) {
-                // Typing
-                if (charIndex < fullNameToType.length) {
-                    displayedText += fullNameToType.charAt(charIndex);
-                    charIndex++;
-                    updateDisplay(); // Update HTML with styling
-                    setTimeout(typeEffect, typingSpeed);
-                } else {
-                    // Finished typing, start deleting after a pause
-                    isDeleting = true;
-                    setTimeout(typeEffect, pauseAfterType);
-                }
-            } else {
-                // Deleting
-                if (displayedText.length > 0) {
-                    displayedText = displayedText.slice(0, -1);
-                    updateDisplay(); // Update HTML with styling
-                    setTimeout(typeEffect, deletingSpeed);
-                } else {
-                    // Finished deleting, start typing again after a pause
-                    isDeleting = false;
-                    charIndex = 0; // Reset charIndex for re-typing
-                    setTimeout(typeEffect, pauseAfterDelete);
-                }
-            }
-        }
-
-        // Start the effect when the home section is in view
-        const homeSectionElement = document.getElementById('home');
-        const homeObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    typeEffect(); // Start typing when the home section enters view
-                    observer.unobserve(entry.target); // Stop observing once started
-                }
-            });
-        }, { threshold: 0.5 }); // Trigger when 50% of the section is visible
-
-        homeObserver.observe(homeSectionElement);
-
     </script>
 </body>
 </html>
