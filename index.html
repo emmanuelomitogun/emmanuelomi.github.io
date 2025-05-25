@@ -238,6 +238,8 @@
             margin-bottom: 20px;
             line-height: 1.2; /* Adjusted line-height */
             overflow-wrap: break-word; /* Ensure long words break onto the next line */
+            width: 100%; /* Ensure it takes full width available */
+            max-width: 100%; /* Explicitly prevent it from exceeding */
         }
 
         .home-content .highlight { /* Renamed from .hero-content .highlight */
@@ -960,6 +962,13 @@
                 grid-template-columns: repeat(2, 1fr);
             }
 
+            .home-content {
+                /* Ensure the content itself does not exceed 100% of the grid's available width */
+                width: 100%;
+                max-width: 100%; /* Explicitly constrain home-content */
+                box-sizing: border-box; /* Re-affirm box-sizing */
+            }
+
             .home-content .subtitle { /* Renamed from .hero-content .subtitle */
                 font-size: 1.2rem;
             }
@@ -1014,6 +1023,12 @@
                 height: 300px;
                 top: -50px;
                 left: -50px;
+            }
+
+            .home-content {
+                width: 100%;
+                max-width: 100%;
+                box-sizing: border-box;
             }
 
             .home-content .subtitle { /* Renamed from .hero-content .subtitle */
