@@ -256,6 +256,22 @@
             font-weight: 600;
         }
 
+        /* Typing effect cursor */
+        .home-content .cursor {
+            display: inline-block;
+            background-color: #00ff88;
+            margin-left: 5px;
+            width: 3px;
+            height: 0.9em; /* Adjust to match the line height of the text */
+            animation: blink 0.8s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+
         .home-content .subtitle { /* Renamed from .hero-content .subtitle */
             font-size: 1.4rem;
             color: #a0a0a0;
@@ -1104,6 +1120,8 @@
                 height: 380px;
                 top: -65px;
                 left: -65px;
+                animation-duration: 30s;
+                animation-direction: reverse;
             }
             .home-section { /* Renamed from .hero */
                 padding-top: 80px;
@@ -1244,7 +1262,7 @@
     </div>
 
     <div class="container">
-        <section class="home-section" id="home"> <div class="home-grid"> <div class="home-content"> <h1>Hi, I'm Emmanuel <span class="highlight">Omitogun</span></h1>
+        <section class="home-section" id="home"> <div class="home-grid"> <div class="home-content"> <h1><span id="typed-text"></span><span class="cursor">|</span></h1>
                     <p class="subtitle">Data Analyst & Business Intelligence Specialist</p>
                     <p class="professional-summary">
                         I'm a data analyst passionate about solving real-world problems using Power BI, Excel, SQL, and storytelling.
@@ -1608,6 +1626,74 @@
                 document.body.classList.remove('no-scroll');
             });
         });
+
+        // Dynamic typing effect for Home section title
+        const typedTextSpan = document.querySelector("#typed-text");
+        const phrases = ["Hi, I'm Emmanuel <span class='highlight'>Omitogun</span>"];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typingSpeed = 150; // Milliseconds per character typed
+        const deletingSpeed = 100; // Milliseconds per character deleted
+        const pauseBetweenPhrases = 1500; // Milliseconds to pause before typing next phrase
+
+        function typeEffect() {
+            const currentPhraseWithHtml = phrases[phraseIndex];
+            const plainTextMatch = currentPhraseWithHtml.match(/(.*)<span class='highlight'>(.*)<\/span>/);
+
+            let preHighlightText = "";
+            let highlightText = "";
+            let totalPlainText = "";
+
+            if (plainTextMatch && plainTextMatch.length === 3) {
+                preHighlightText = plainTextMatch[1]; // "Hi, I'm Emmanuel "
+                highlightText = plainTextMatch[2];    // "Omitogun"
+                totalPlainText = preHighlightText + highlightText; // "Hi, I'm Emmanuel Omitogun"
+            } else {
+                totalPlainText = currentPhraseWithHtml; // Fallback for no highlight
+                preHighlightText = currentPhraseWithHtml;
+            }
+
+            if (isDeleting) {
+                charIndex--;
+            } else {
+                charIndex++;
+            }
+
+            // Ensure charIndex stays within bounds of the total plain text
+            charIndex = Math.max(0, Math.min(charIndex, totalPlainText.length));
+
+            let currentRenderedText = "";
+
+            if (charIndex <= preHighlightText.length) {
+                // Typing/deleting the part before the highlight
+                currentRenderedText = totalPlainText.substring(0, charIndex);
+            } else {
+                // Typing/deleting the highlight part
+                const currentPreHighlight = preHighlightText;
+                const currentHighlight = highlightText.substring(0, charIndex - preHighlightText.length);
+                currentRenderedText = `${currentPreHighlight}<span class='highlight'>${currentHighlight}</span>`;
+            }
+
+            typedTextSpan.innerHTML = currentRenderedText;
+
+            // Determine if typing/deleting is complete
+            if (!isDeleting && charIndex === totalPlainText.length) {
+                // Typed the whole phrase, now pause then start deleting
+                setTimeout(() => isDeleting = true, pauseBetweenPhrases);
+            } else if (isDeleting && charIndex === 0) {
+                // Deleted the whole phrase, now pause then start typing again
+                isDeleting = false;
+                // Since there's only one phrase, phraseIndex will always remain 0
+            }
+
+            const currentSpeed = isDeleting ? deletingSpeed : typingSpeed;
+            setTimeout(typeEffect, currentSpeed);
+        }
+
+        // Start typing effect when the page loads
+        document.addEventListener("DOMContentLoaded", typeEffect);
+
 
         // Function to handle IntersectionObserver for sections
         const animateOnScroll = (entries, observer) => {
