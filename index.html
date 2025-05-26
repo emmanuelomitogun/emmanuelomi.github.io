@@ -48,6 +48,25 @@
             z-index: 2;
         }
 
+        /* Portfolio Title at Top */
+        .portfolio-title {
+            position: fixed;
+            top: 30px;
+            left: 40px;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: bold; /* Modified: Bold font weight */
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            z-index: 1000; /* Same as nav */
+            transition: top 0.3s ease, background 0.3s ease, padding 0.3s ease;
+        }
+
+        .nav.sticky + .portfolio-title { /* Adjust when nav is sticky */
+            top: 15px; /* Align with sticky nav padding */
+        }
+
+
         /* Navigation Bar (Desktop) */
         .nav {
             position: fixed;
@@ -225,7 +244,7 @@
         }
 
         .home-content h1 { /* Renamed from .hero-content h1 */
-            font-size: clamp(3rem, 6vw, 7rem);
+            font-size: clamp(3rem, 6vw, 6rem); /* Modified: Reduced max font-size for desktop */
             font-weight: 300;
             color: #ffffff;
             margin-bottom: 20px;
@@ -1013,11 +1032,16 @@
             }
 
             .nav {
-                display: none;
+                display: none; /* Hide desktop nav on mobile */
             }
 
             .hamburger-menu {
-                display: flex;
+                display: flex; /* Show hamburger on mobile */
+            }
+
+            .portfolio-title {
+                left: 70px; /* Modified: Adjusted left position */
+                top: 35px; /* Modified: Adjusted top position */
             }
 
             .skills-grid,
@@ -1095,6 +1119,11 @@
         }
 
         @media (max-width: 400px) {
+            .portfolio-title {
+                left: 60px; /* Modified: Further adjust for smaller screens */
+                font-size: 12px;
+                top: 35px; /* Modified: Adjusted vertically */
+            }
             .profile-container {
                 width: 200px;
                 height: 200px;
@@ -1188,6 +1217,8 @@
 <body>
     <div class="noise-bg"></div>
 
+    <div class="portfolio-title">Emmanuel Omitogun's Portfolio</div>
+
     <nav class="nav" id="main-nav">
         <a href="#home">Home</a>
         <a href="#about">About</a>
@@ -1213,7 +1244,7 @@
     </div>
 
     <div class="container">
-        <section class="home-section" id="home"> <div class="home-grid"> <div class="home-content"> <h1>Emmanuel <span class="highlight">Omitogun</span></h1>
+        <section class="home-section" id="home"> <div class="home-grid"> <div class="home-content"> <h1>Hi, I'm Emmanuel <span class="highlight">Omitogun</span></h1>
                     <p class="subtitle">Data Analyst & Business Intelligence Specialist</p>
                     <p class="professional-summary">
                         I'm a data analyst passionate about solving real-world problems using Power BI, Excel, SQL, and storytelling.
@@ -1735,14 +1766,17 @@
 
         // Sticky navigation bar
         const mainNav = document.getElementById('main-nav');
+        const portfolioTitle = document.querySelector('.portfolio-title');
         const homeSection = document.getElementById('home'); // Updated to target home section
         let navHeight = mainNav.offsetHeight;
 
         function checkStickyNav() {
             if (homeSection && window.scrollY > homeSection.offsetHeight - navHeight) { // Adjust threshold as needed
                 mainNav.classList.add('sticky');
+                portfolioTitle.classList.add('sticky'); /* Apply sticky class to portfolio title */
             } else {
                 mainNav.classList.remove('sticky');
+                portfolioTitle.classList.remove('sticky'); /* Remove sticky class from portfolio title */
             }
         }
         window.addEventListener('scroll', checkStickyNav);
