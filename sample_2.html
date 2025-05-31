@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noventra Engagement Optimization Analysis</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta name="description" content="Detailed insights into the VitaSure Insurance Group campaign optimization by Emmanuel Omitogun.">
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            color: #e0e0e0; /* Lighter text for dark background */
+            background: #0a0a0a;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .noise-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.04; /* Slightly more visible noise */
+            background-image:
+                radial-gradient(circle at 1px 1px, #ffffff 1px, transparent 0);
+            background-size: 25px 25px; /* Slightly larger noise pattern */
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Portfolio Title */
+        .portfolio-title {
+            position: fixed;
+            top: 30px;
+            left: 40px;
+            font-family: 'Montserrat', sans-serif; /* Distinct font for title */
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #00ff88; /* Vibrant accent color */
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-title.sticky {
+            font-size: 1rem;
+            top: 15px;
+            left: 40px;
+            color: #ffffff; /* White when sticky */
+        }
+
+        /* Navigation Bar (Desktop) */
+        .nav {
+            position: fixed;
+            top: 30px;
+            right: 40px;
+            z-index: 1000;
+            display: flex;
+            gap: 30px;
+            transition: top 0.3s ease, background 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .nav.sticky {
+            top: 0;
+            background: rgba(10, 10, 10, 0.95); /* More opaque background */
+            padding: 15px 40px;
+            width: 100%;
+            justify-content: flex-end;
+            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.2); /* Enhanced shadow */
+        }
+
+        .nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            letter-spacing: 0.8px; /* Tighter letter spacing */
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-bottom: 5px; /* Space for underline */
+        }
+
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0; /* Align with bottom of text */
+            left: 0;
+            width: 0;
+            height: 2px; /* Thicker underline */
+            background: #00ff88;
+            transition: width 0.3s ease;
+        }
+
+        .nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hamburger Menu Icon & Mobile Nav */
+        .hamburger-menu {
+            display: none;
+            position: fixed;
+            top: 30px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: none;
+            border-radius: 5px;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1001;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-menu span {
+            display: block;
+            width: 28px; /* Slightly wider bars */
+            height: 3px;
+            background: #00ff88;
+            border-radius: 2px;
+            margin: 5px 0; /* More space between bars */
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-menu.open span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg); /* Adjusted for wider bars */
+        }
+
+        .hamburger-menu.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger-menu.open span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg); /* Adjusted for wider bars */
+        }
+
+        .mobile-nav-overlay {
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 300px; /* Wider mobile nav */
+            height: 100%;
+            background: rgba(0, 0, 0, 0.98);
+            z-index: 1000;
+            flex-direction: column;
+            padding: 120px 30px 30px; /* More top padding */
+            transform: translateX(-100%);
+            visibility: hidden;
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), visibility 0.4s ease;
+            box-shadow: 3px 0 20px rgba(0, 255, 136, 0.3); /* Stronger shadow */
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+
+        .mobile-nav-overlay.open {
+            transform: translateX(0);
+            visibility: visible;
+        }
+
+        .mobile-nav-overlay a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1.2rem; /* Larger font for readability */
+            padding: 15px 0; /* More vertical padding */
+            transition: color 0.3s ease, transform 0.3s ease;
+            text-transform: uppercase;
+            font-weight: 500;
+            width: 100%;
+            text-align: left;
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .mobile-nav-overlay.open a {
+            opacity: 1;
+            transform: translateX(0);
+            animation: fadeInSlideIn 0.5s ease-out forwards;
+        }
+        .mobile-nav-overlay.open a:nth-child(1) { animation-delay: 0.1s; }
+        .mobile-nav-overlay.open a:nth-child(2) { animation-delay: 0.15s; }
+        .mobile-nav-overlay.open a:nth-child(3) { animation-delay: 0.2s; }
+        .mobile-nav-overlay.open a:nth-child(4) { animation-delay: 0.25s; }
+        .mobile-nav-overlay.open a:nth-child(5) { animation-delay: 0.3s; }
+        .mobile-nav-overlay.open a:nth-child(6) { animation-delay: 0.35s; }
+
+        .mobile-nav-overlay a:hover {
+            color: #00ff88;
+            transform: translateX(8px); /* More pronounced hover effect */
+        }
+
+        /* Project Details Specific Styles */
+        .project-details-section {
+            padding: 150px 0 100px; /* Increased padding for more breathing room */
+            position: relative;
+            background: #0a0a0a;
+            opacity: 0;
+            transform: translateY(30px); /* More pronounced initial animation */
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .project-details-header {
+            text-align: center;
+            margin-bottom: 80px; /* More space */
+        }
+
+        .project-details-header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(2.8rem, 5.5vw, 4.8rem); /* Slightly larger title */
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 25px;
+            line-height: 1.2;
+            text-shadow: 0 0 15px rgba(0, 255, 136, 0.1); /* Subtle glow */
+            transition: opacity 1s ease-in-out; /* For appearing/disappearing effect */
+        }
+
+        .project-details-header .lead-paragraph {
+            font-size: 1.3rem; /* Larger lead paragraph */
+            color: #a0a0a0;
+            max-width: 850px; /* Wider text block */
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .project-hero-image {
+            width: 100%;
+            max-height: 550px; /* Taller hero image */
+            object-fit: cover;
+            border-radius: 20px; /* More rounded corners */
+            margin-bottom: 80px;
+            box-shadow: 0 15px 50px rgba(0, 255, 136, 0.3); /* Stronger shadow */
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smoother transform */
+        }
+
+        .project-hero-image:hover {
+            transform: scale(1.02); /* More pronounced hover effect */
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 2.5fr; /* Sidebar slightly narrower, content wider */
+            gap: 80px; /* Larger gap */
+            align-items: flex-start;
+        }
+
+        .sidebar {
+            background: rgba(255, 255, 255, 0.05); /* Slightly darker background */
+            border: 1px solid rgba(255, 255, 255, 0.12); /* Stronger border */
+            border-radius: 20px;
+            padding: 40px; /* More padding */
+            position: sticky;
+            top: 120px; /* Adjusted sticky position */
+            box-shadow: 0 8px 30px rgba(0, 255, 136, 0.1);
+            max-width: 380px; /* Slightly wider sidebar */
+            transition: all 0.3s ease;
+        }
+
+        .sidebar:hover {
+            box-shadow: 0 12px 40px rgba(0, 255, 136, 0.2); /* Hover shadow */
+        }
+
+        .sidebar h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.6rem; /* Larger sidebar title */
+            color: #00ff88;
+            margin-bottom: 30px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .sidebar-item {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* Stronger separator */
+        }
+        .sidebar-item:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+        }
+
+        .sidebar-item strong {
+            display: block;
+            color: #ffffff;
+            font-size: 1.05rem; /* Slightly larger labels */
+            margin-bottom: 10px;
+        }
+
+        .sidebar-item p, .sidebar-item ul {
+            color: #b0b0b0; /* Slightly lighter gray */
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .sidebar-item ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .sidebar-item ul li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .sidebar-item ul li::before {
+            content: '\2022'; /* Unicode bullet */
+            color: #00ff88;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+            margin-right: 0.5em;
+        }
+
+        .sidebar .tech-stack {
+            justify-content: center;
+        }
+
+        .main-content {
+            background: rgba(255, 255, 255, 0.03); /* Slightly darker background */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Stronger border */
+            border-radius: 20px;
+            padding: 50px; /* More padding */
+            box-shadow: 0 8px 30px rgba(0, 255, 136, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .main-content:hover {
+            box-shadow: 0 12px 40px rgba(0, 255, 136, 0.2); /* Hover shadow */
+        }
+
+        .main-content h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem; /* Larger heading */
+            color: #ffffff;
+            margin-bottom: 30px;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        .main-content h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 80px; /* Wider underline */
+            height: 3px; /* Thicker underline */
+            background: #00ff88;
+            border-radius: 2px;
+        }
+
+        .main-content h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem; /* Larger sub-heading */
+            color: #00ff88;
+            margin-top: 45px; /* More space */
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .main-content p {
+            color: #e0e0e0;
+            margin-bottom: 25px; /* More space */
+            line-height: 1.8;
+            font-size: 1.1rem; /* Slightly larger body text */
+        }
+
+        .main-content ul, .main-content ol {
+            margin-left: 30px; /* More indentation */
+            margin-bottom: 25px;
+            color: #e0e0e0;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .main-content li {
+            margin-bottom: 12px; /* More space between list items */
+        }
+
+        .main-content img {
+            max-width: 100%;
+            border-radius: 15px; /* More rounded corners */
+            margin: 40px 0; /* More vertical margin */
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4); /* Stronger shadow */
+            transition: transform 0.3s ease;
+        }
+
+        .main-content img:hover {
+            transform: scale(1.005); /* Subtle hover effect */
+        }
+
+        .project-cta-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px; /* Larger gap */
+            margin-top: 50px; /* More space */
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 20px 40px; /* Larger buttons */
+            border: none;
+            border-radius: 10px; /* More rounded */
+            font-size: 17px; /* Slightly larger font */
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px; /* Larger gap */
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .btn-primary {
+            background: #00ff88; /* Solid accent color */
+            color: #0a0a0a; /* Dark text for contrast */
+            border: 2px solid #00ff88;
+        }
+
+        .btn-primary:hover {
+            background: #00e676; /* Slightly darker green on hover */
+            color: #000000;
+            transform: translateY(-3px); /* More pronounced lift */
+            box-shadow: 0 12px 35px rgba(0, 255, 136, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+        }
+
+        .btn-secondary:hover {
+            background: #ffffff;
+            color: #0a0a0a;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Tech Tags */
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px; /* Larger gap between tags */
+            margin-top: 20px;
+        }
+
+        .tech-tag {
+            background: rgba(0, 255, 136, 0.15); /* Slightly darker background */
+            color: #00ff88;
+            padding: 8px 16px; /* More padding */
+            border-radius: 25px; /* More rounded */
+            font-size: 0.9rem; /* Slightly larger font */
+            border: 1px solid rgba(0, 255, 136, 0.3); /* Stronger border */
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .tech-tag:hover {
+            background: rgba(0, 255, 136, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Other Projects Section */
+        .other-projects {
+            margin-top: 100px; /* More space */
+            padding: 50px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1); /* Stronger border */
+            text-align: center;
+        }
+
+        .other-projects h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            color: #ffffff;
+            margin-bottom: 50px;
+            font-weight: 600;
+            position: relative;
+            display: inline-block;
+        }
+
+        .other-projects h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -15px; /* Lower underline */
+            width: 90px; /* Wider underline */
+            height: 4px; /* Thicker underline */
+            background: #00ff88;
+            border-radius: 2px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Slightly larger min-width */
+            gap: 35px; /* Larger gap */
+            justify-content: center;
+        }
+
+        .project-thumbnail {
+            background: rgba(255, 255, 255, 0.06); /* Slightly darker background */
+            border: 1px solid rgba(255, 255, 255, 0.15); /* Stronger border */
+            border-radius: 20px; /* More rounded */
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .project-thumbnail:hover {
+            transform: translateY(-10px); /* More pronounced lift */
+            box-shadow: 0 20px 50px rgba(0, 255, 136, 0.4);
+        }
+
+        .project-thumbnail img {
+            width: 100%;
+            height: 220px; /* Taller image */
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .project-thumbnail:hover img {
+            transform: scale(1.08); /* More pronounced zoom */
+        }
+
+        .project-thumbnail-info {
+            padding: 25px; /* More padding */
+            text-align: left;
+        }
+
+        .project-thumbnail-info h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem; /* Larger title */
+            color: #00ff88;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .project-thumbnail-info p {
+            font-size: 1rem; /* Slightly larger description */
+            color: #b0b0b0;
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        .footer-text {
+            color: #666;
+            font-size: 0.95rem; /* Slightly larger */
+            margin-top: 100px;
+            text-align: center;
+            padding-bottom: 50px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 25px;
+            }
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+            .sidebar {
+                position: static;
+                max-width: 100%;
+                margin: 0 auto;
+                padding: 30px;
+            }
+            .main-content {
+                padding: 40px;
+            }
+            .projects-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+            .portfolio-title {
+                left: 25px;
+            }
+            .nav {
+                right: 25px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .project-details-section {
+                padding-top: 100px;
+                padding-bottom: 60px;
+            }
+            .project-details-header h1 {
+                font-size: 2.2rem;
+            }
+            .project-details-header .lead-paragraph {
+                font-size: 1.1rem;
+            }
+            .main-content h2 {
+                font-size: 2rem;
+            }
+            .main-content h3 {
+                font-size: 1.6rem;
+            }
+            .main-content p, .main-content ul, .main-content ol {
+                font-size: 1rem;
+            }
+            .nav {
+                display: none;
+            }
+            .portfolio-title {
+                display: none; /* Hide portfolio title on mobile to give space to hamburger */
+            }
+            .hamburger-menu {
+                display: flex;
+            }
+            .scroll-to-top-bottom {
+                right: 15px;
+                width: 45px;
+                height: 45px;
+                font-size: 20px;
+            }
+            #scroll-to-top {
+                bottom: 80px; /* Adjusted for mobile */
+            }
+            #scroll-to-bottom {
+                bottom: 25px; /* Adjusted for mobile */
+            }
+            .btn {
+                padding: 16px 30px;
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            .project-details-header h1 {
+                font-size: 1.8rem;
+                margin-bottom: 15px;
+            }
+            .project-details-header .lead-paragraph {
+                font-size: 0.95rem;
+            }
+            .sidebar {
+                padding: 25px;
+                border-radius: 15px;
+            }
+            .main-content {
+                padding: 25px;
+                border-radius: 15px;
+            }
+            .main-content h2 {
+                font-size: 1.6rem;
+                margin-bottom: 20px;
+                padding-bottom: 8px;
+            }
+            .main-content h2::after {
+                width: 50px;
+                height: 2px;
+            }
+            .main-content h3 {
+                font-size: 1.3rem;
+                margin-top: 30px;
+                margin-bottom: 15px;
+            }
+            .main-content p, .main-content ul, .main-content ol {
+                font-size: 0.95rem;
+                margin-bottom: 15px;
+            }
+            .project-cta-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            .btn {
+                width: 100%;
+                max-width: 280px;
+                text-align: center;
+                justify-content: center;
+            }
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            .other-projects h2 {
+                font-size: 1.8rem;
+            }
+            .project-thumbnail {
+                border-radius: 15px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Scroll to Top/Bottom Button */
+        .scroll-to-top-bottom {
+            position: fixed;
+            right: 40px;
+            background: #00ff88; /* Solid accent color */
+            color: #0a0a0a;
+            width: 50px; /* Larger buttons */
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px; /* Larger icon */
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(0, 255, 136, 0.3);
+            transition: all 0.3s ease;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            border: 1px solid rgba(255,255,255,0.2); /* Subtle border */
+        }
+
+        .scroll-to-top-bottom:hover {
+            background: #00e676; /* Slightly darker green */
+            transform: translateY(-8px) scale(1.08); /* More pronounced lift and scale */
+            box-shadow: 0 15px 30px rgba(0, 255, 136, 0.5); /* Stronger shadow */
+        }
+
+        .scroll-to-top-bottom.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        #scroll-to-top {
+            bottom: 100px;
+        }
+
+        #scroll-to-bottom {
+            bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="noise-bg"></div>
+
+    <div class="portfolio-title">Emmanuel Omitogun's Portfolio</div>
+
+    <nav class="nav" id="main-nav">
+        <a href="index-5.html#home">Home</a>
+        <a href="index-5.html#about">About</a>
+        <a href="index-5.html#skills">Skills</a>
+        <a href="index-5.html#projects">Projects</a>
+        <a href="index-5.html#experience">Experience</a>
+        <a href="index-5.html#contact">Contact</a>
+    </nav>
+
+    <div class="hamburger-menu" id="hamburger-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <div class="mobile-nav-overlay" id="mobile-nav-overlay">
+        <a href="index-5.html#home" class="mobile-nav-link">Home</a>
+        <a href="index-5.html#about" class="mobile-nav-link">About</a>
+        <a href="index-5.html#skills" class="mobile-nav-link">Skills</a>
+        <a href="index-5.html#projects" class="mobile-nav-link">Projects</a>
+        <a href="index-5.html#experience" class="mobile-nav-link">Experience</a>
+        <a href="index-5.html#contact" class="mobile-nav-link">Contact</a>
+    </div>
+
+    <div class="container">
+        <section class="project-details-section">
+            <div class="project-details-header">
+                <h1 id="project-main-title">Noventra Engagement Optimization Analysis</h1>
+                <p class="lead-paragraph">
+                    Noventra Assurance is a mid-sized insurance provider specializing in life, health, and personal coverage plans for working professionals and families across urban and suburban regions. With a focus on customer-centric solutions and long-term policyholder relationships, Noventra has invested heavily in outbound engagement to strengthen client communication, retention, and upselling of value-added services. The company blends traditional outreach methods with evolving data strategies to better connect with its customer base and improve campaign performance.
+                </p>
+            </div>
+
+            <img src="Images/project_1.jpg" alt="Insurance Campaign Performance Dashboard" class="project-hero-image">
+
+            <div class="content-grid">
+                <aside class="sidebar">
+                    <h3>Project Overview</h3>
+                    <div class="sidebar-item">
+                        <strong>Category:</strong>
+                        <p>Business Intelligence, Marketing Analytics</p>
+                    </div>
+                    <div class="sidebar-item">
+                        <strong>Tools & Technologies:</strong>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Power BI</span>
+                            <span class="tech-tag">SQL</span>
+                            <span class="tech-tag">Excel</span>
+                            <span class="tech-tag">DAX</span>
+                        </div>
+                    </div>
+                    <div class="sidebar-item">
+                        <strong>Key Metrics Focused:</strong>
+                        <ul>
+                            <li>Engagement Rate</li>
+                            <li>Calls per Response</li>
+                            <li>Customer Lifetime Value</li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <article class="main-content">
+                    <h2>1. Executive Summary</h2>
+                    <p>
+                        Noventra Assurance had long taken pride in its customer outreach efforts—until performance metrics revealed a gap between activity and outcomes.
+                        In 2019, the company conducted a high-volume engagement campaign, making over 45,000 outbound calls to its customer base. The result was 5,289 positive responses, yielding an 11.7% success rate. While superficially acceptable, a closer look showed that despite the scale of effort, Noventra’s approach lacked strategic precision.
+                        This realization prompted a full-scale data analysis. The investigation sought to understand not just the surface-level outcomes, but the behavioral and contextual patterns that distinguished successful contacts from ineffective ones. The insights uncovered clear levers of improvement—specifically, who was contacted, when, and through which channels.
+                        Perhaps most compellingly, the findings indicated that by simply realigning outreach based on these insights, Noventra could double its engagement rate without increasing its call volume.
+                    </p>
+
+                    <h2>2. Background: A Campaign in Search of Efficiency</h2>
+                    <p>
+                        Effort was not the issue—effectiveness was. Noventra’s campaign made over 45,000 outbound calls, but the results were modest.
+                    </p>
+                    <ul>
+                        <li>Fewer than 12% of calls resulted in a positive engagement</li>
+                        <li>On average, it took 24 calls to secure a single successful response</li>
+                        <li>Some customers responded readily; others remained unresponsive despite repeated attempts</li>
+                        <li>There appeared to be no clear rationale for these inconsistencies</li>
+                    </ul>
+                    <p>
+                        To address this, Noventra needed a new approach—one that translated call activity into consistent, measurable results.
+                    </p>
+
+                    <h2>3. Analytical Approach: From Surface Data to Strategic Insight</h2>
+                    <p>
+                        The analysis team employed a multi-layered strategy that moved beyond basic demographics. Every one of the 45,211 call records was evaluated for deeper behavioral signals and interaction dynamics.
+                    </p>
+                    <ul>
+                        <li>Customers were segmented not only by age or marital status, but also by call history, responsiveness to time slots, and preferred channels.</li>
+                        <li>Interactions were mapped across combinations of variables (e.g., age × marital status × channel × time of day) to identify patterns of success.</li>
+                        <li>Behavioral clusters were built to profile high-yield and low-yield segments based on both contact outcomes and efficiency of call attempts.</li>
+                    </ul>
+                    <p>
+                        The objective was not simply to describe performance, but to define the structure of what worked—and what didn’t.
+                    </p>
+
+                    <h2>4. Key Insights</h2>
+                    <h3>1. Not All Customers Are Equal: The Power Segment</h3>
+                    <img src="Images/eda_chart_example.png" alt="Response Rates by Segment">
+                    <p>
+                        A standout segment emerged: married executives aged 25–34 contacted via mobile phones. This group had a 23.4% response rate—more than double the campaign average.
+                    </p>
+                    <ul>
+                        <li>Although they represented only 18% of the contact base, they contributed to 36% of total positive responses</li>
+                        <li>They responded positively even across multiple contact attempts</li>
+                        <li>On average, only 4.3 calls were needed per response, compared to 23.6 across the full campaign</li>
+                    </ul>
+                    <p>
+                        This segment represented a high-leverage audience—an opportunity to concentrate effort for outsized return.
+                    </p>
+
+                    <h3>2. Channel Matters: Mobile Dominates</h3>
+                    <img src="Images/eda_chart_example.png" alt="Mobile vs. Landline Engagement">
+                    <p>
+                        Customers contacted via mobile phones had a 1.7x higher likelihood of responding compared to landline contacts. Mobile engagement was consistent across segments and yielded better efficiency.
+                    </p>
+                    <p>
+                        Despite this, landline outreach still accounted for a large share of the contact effort—an imbalance that reduced campaign effectiveness.
+                    </p>
+
+                    <h3>3. Timing as a Multiplier</h3>
+                    <img src="Images/eda_chart_example.png" alt="Call Success by Hour and Day Heatmap">
+                    <p>
+                        Calls made between 10 a.m. and 12 p.m. on weekdays showed significantly better conversion rates. This pattern held especially true for working professionals and married customers.
+                    </p>
+                    <p>
+                        Shifting call schedules toward these responsive windows presented an immediate opportunity to improve outcomes with no increase in call volume.
+                    </p>
+
+                    <h3>4. Diminishing Returns of Repeated Outreach</h3>
+                    <img src="Images/eda_chart_example.png" alt="Attempts vs. Positive Responses Funnel">
+                    <p>
+                        While some segments benefited from multiple contact attempts, others showed rapid drop-offs in response likelihood. For low-performing groups, additional calls after the second attempt often yielded no value.
+                    </p>
+                    <p>
+                        This finding highlighted the importance of knowing when to persist—and when to reallocate effort.
+                    </p>
+
+                    <h2>5. Strategic Recommendations</h2>
+                    <p>
+                        Based on the findings, the following recommendations were developed to help Noventra significantly enhance campaign efficiency and response rates without increasing operational burden:
+                    </p>
+                    <ol>
+                        <li><strong>Prioritize High-Yield Segments:</strong> Future campaigns should center on high-response segments such as married professionals aged 25–34, especially those reachable by mobile. These individuals show both a higher baseline interest and greater tolerance for repeated contact. By focusing efforts here, Noventra can significantly improve return per call.</li>
+                        <li><strong>Optimize Contact Channels:</strong> Mobile phones should become the default outreach channel. Landline calls contributed little relative to effort and can be phased out or deprioritized, especially for lower-yield segments. This reallocation ensures that resources are directed toward the most productive pathways.</li>
+                        <li><strong>Recalibrate Call Timing:</strong> Implement call scheduling protocols that prioritize mid-morning windows (10 a.m. to 12 p.m.) on weekdays. Avoid early morning and late-day calls unless supported by segment-specific data. Aligning calls with proven responsive windows will improve efficiency and enhance customer receptivity.</li>
+                        <li><strong>Deploy Tiered Contact Strategies:</strong> Different customer segments should have different follow-up thresholds based on their historical engagement patterns. High-potential segments may justify up to 3–4 attempts. Lower-potential segments should be deprioritized after two unsuccessful contacts. This approach reduces effort waste while maintaining persistence where it matters.</li>
+                        <li><strong>Build Predictive Engagement Models:</strong> Use the existing campaign dataset to develop a lead scoring model that predicts likelihood of response based on demographic, behavioral, and temporal indicators. This predictive tool can rank customers before outreach, guiding prioritization and scheduling decisions.</li>
+                        <li><strong>Monitor Performance with Real-Time Dashboards:</strong> Develop interactive dashboards to track key performance indicators by segment, channel, time slot, and call frequency. This will enable ongoing optimization, real-time course correction, and transparency for campaign managers.</li>
+                        <li><strong>Establish Test-and-Learn Cycles:</strong> Integrate A/B testing for variables such as time of day, call scripts, or follow-up strategies to continuously refine the outreach model. Insights gained from these cycles should inform quarterly campaign playbooks.</li>
+                    </ol>
+
+                    <h2>6. Project Impact</h2>
+                    <p>
+                        If implemented, these recommendations could enable Noventra to:
+                    </p>
+                    <ul>
+                        <li>Double campaign engagement rates without increasing total outreach volume</li>
+                        <li>Significantly reduce operational waste by avoiding low-return contact strategies</li>
+                        <li>Enhance customer experience by aligning outreach with actual preferences and behavior</li>
+                        <li>Shift from generic outreach to precision engagement, enabling long-term retention and better conversion outcomes</li>
+                    </ul>
+
+                    <h2>7. Optional Dashboard (For Portfolio Presentation)</h2>
+                    <img src="Images/powerbi_dashboard_screenshot.png" alt="Power BI Dashboard Screenshot">
+                    <p>
+                        To complement this case study, a visual Power BI dashboard can be showcased to illustrate data-driven decision-making. Suggested components include:
+                    </p>
+                    <ul>
+                        <li>KPI cards: Total Calls, Engagement Rate, Avg. Calls per Response</li>
+                        <li>Bar charts: Response Rates by Segment (Age × Marital Status × Channel)</li>
+                        <li>Heatmap: Call Success by Hour and Day of Week</li>
+                        <li>Funnel chart: Attempts vs. Positive Responses</li>
+                        <li>Slicers: Segment, Channel, Time, Response Level</li>
+                    </ul>
+                    <p>
+                        This visual layer can make the strategy tangible for stakeholders, hiring managers, or clients reviewing the portfolio.
+                    </p>
+
+                    <div class="project-cta-buttons">
+                        <a href="https://github.com/Elohim00/Insurance-Campaign-Performance.git" class="btn btn-primary" target="_blank">
+                            <i class="fas fa-code"></i> View Source Code
+                        </a>
+                        <a href="YOUR_DATASET_DOWNLOAD_LINK_HERE" class="btn btn-secondary" target="_blank">
+                            <i class="fas fa-database"></i> Download the Dataset
+                        </a>
+                         <a href="YOUR_LIVE_DASHBOARD_LINK_HERE" class="btn btn-primary" target="_blank">
+                            <i class="fas fa-chart-bar"></i> Live Dashboard
+                        </a>
+                    </div>
+                </article>
+            </div>
+
+            <section class="other-projects">
+                <h2>View Other Projects</h2>
+                <div class="projects-grid">
+                    <a href="index-5.html#projects" class="project-thumbnail">
+                        <img src="Images/project_placeholder_1.jpg" alt="Project 2 Thumbnail">
+                        <div class="project-thumbnail-info">
+                            <h3>Project Title 2</h3>
+                            <p>Short description of Project 2. What was the main goal or impact?</p>
+                        </div>
+                    </a>
+                    <a href="index-5.html#projects" class="project-thumbnail">
+                        <img src="Images/project_placeholder_2.jpg" alt="Project 3 Thumbnail">
+                        <div class="project-thumbnail-info">
+                            <h3>Project Title 3</h3>
+                            <p>Short description of Project 3. What was the main goal or impact?</p>
+                        </div>
+                    </a>
+                    <a href="index-5.html#projects" class="project-thumbnail">
+                        <img src="Images/project_placeholder_3.jpg" alt="Project 4 Thumbnail">
+                        <div class="project-thumbnail-info">
+                            <h3>Project Title 4</h3>
+                            <p>Short description of Project 4. What was the main goal or impact?</p>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+        </section>
+
+        <p class="footer-text">
+            &copy; 2025 Emmanuel Omitogun. All rights reserved.
+        </p>
+    </div>
+
+    <div class="scroll-to-top-bottom" id="scroll-to-top">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+    <div class="scroll-to-bottom" id="scroll-to-bottom">
+        <i class="fas fa-chevron-down"></i>
+    </div>
+
+    <script>
+        // Hamburger menu functionality
+        const hamburgerMenu = document.getElementById('hamburger-menu');
+        const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        hamburgerMenu.addEventListener('click', () => {
+            hamburgerMenu.classList.toggle('open');
+            mobileNavOverlay.classList.toggle('open');
+            document.body.classList.toggle('no-scroll');
+        });
+
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburgerMenu.classList.remove('open');
+                mobileNavOverlay.classList.remove('open');
+                document.body.classList.remove('no-scroll');
+            });
+        });
+
+        // Sticky navigation bar
+        const mainNav = document.getElementById('main-nav');
+        const portfolioTitle = document.querySelector('.portfolio-title');
+        let navHeight = mainNav.offsetHeight;
+
+        function checkStickyNav() {
+            if (window.scrollY > 50) { // Simple scroll threshold
+                mainNav.classList.add('sticky');
+                portfolioTitle.classList.add('sticky');
+            } else {
+                mainNav.classList.remove('sticky');
+                portfolioTitle.classList.remove('sticky');
+            }
+        }
+        window.addEventListener('scroll', checkStickyNav);
+        window.addEventListener('resize', () => {
+            navHeight = mainNav.offsetHeight;
+            checkStickyNav();
+        });
+
+        // Initial check on load
+        window.addEventListener('load', checkStickyNav);
+
+        // Simple animation on page load (for the section)
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelector('.project-details-section').style.opacity = '1';
+            document.querySelector('.project-details-section').style.transform = 'translateY(0)';
+        });
+
+        // Scroll to Top/Bottom button functionality
+        const scrollToTopBtn = document.getElementById('scroll-to-top');
+        const scrollToBottomBtn = document.getElementById('scroll-to-bottom');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) { // Show buttons after scrolling down 300px
+                scrollToTopBtn.classList.add('visible');
+                scrollToBottomBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+                scrollToBottomBtn.classList.remove('visible');
+            }
+
+            // Hide scroll to bottom if at the very end of the page
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 20) { // 20px buffer
+                scrollToBottomBtn.classList.remove('visible');
+            }
+             // Hide scroll to top if at the very top of the page
+            if (window.scrollY < 20) { // 20px buffer
+                scrollToTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        scrollToBottomBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth'
+            });
+        });
+
+        // Dynamic Title (H1 and Browser Tab)
+        const projectMainTitle = document.getElementById('project-main-title');
+        const originalBrowserTitle = document.title;
+        const shortBrowserTitle = "Noventra Optimization Analysis";
+
+        // Function to make H1 title appear/disappear - Changed to 2 seconds (2000 milliseconds)
+        let isTitleVisible = true;
+        setInterval(() => {
+            projectMainTitle.style.opacity = isTitleVisible ? '0' : '1';
+            isTitleVisible = !isTitleVisible;
+        }, 2000); // Toggles every 2 seconds
+
+        // Function to update browser tab title on scroll
+        window.addEventListener('scroll', () => {
+            const scrollThreshold = 200; // Scroll 200px down to change title
+            if (window.scrollY > scrollThreshold) {
+                document.title = shortBrowserTitle;
+            } else {
+                document.title = originalBrowserTitle;
+            }
+        });
+    </script>
+</body>
+</html>
